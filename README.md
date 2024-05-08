@@ -24,25 +24,18 @@ This section guides you through creating a Pluggable Database named `orders_pdb`
    SHOW PDBS;
    ```
 
-3. **Check Current PDB**:
-   To check which Pluggable Database your session is currently connected to, execute:
-
-   ```sql
-   SHOW CON_NAME;
-   ```
-
-4. **Open `orders_pdb`**:
+3. **Open `orders_pdb`**:
    Open the newly created `orders_pdb` for use:
 
    ```sql
    ALTER PLUGGABLE DATABASE orders_pdb OPEN;
    ```
 
-5. **Switch to `orders_pdb`**:
-   Change your session to connect to the `orders_pdb`:
+4. **Check Current PDB**:
+   To check which Pluggable Database your session is currently connected to, execute:
 
    ```sql
-   ALTER SESSION SET CONTAINER = orders_pdb;
+   SHOW CON_NAME;
    ```
 
 **Note**: Follow the same instructions to create another PDB, like `products_pdb`. Ensure to adjust the database names and paths as needed to match your requirements.
