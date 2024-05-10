@@ -237,25 +237,7 @@ This section describes the configuration necessary for setting up the receiving 
    END;
    ```
 
-4. **Grant Queue Privileges**:
-   Ensure that the necessary privileges are granted to the `orders_service` user for enqueuing and dequeuing messages on the `product_queue`.
 
-   ```sql
-   BEGIN
-     DBMS_AQADM.GRANT_QUEUE_PRIVILEGE(
-       privilege => 'ENQUEUE',
-       queue_name => 'PRODUCT_QUEUE',
-       grantee => 'orders_service',
-       grant_option => FALSE
-     );
-     DBMS_AQADM.GRANT_QUEUE_PRIVILEGE(
-       privilege => 'DEQUEUE',
-       queue_name => 'PRODUCT_QUEUE',
-       grantee => 'orders_service',
-       grant_option => FALSE
-     );
-   END;
-   ```
 
 This setup ensures that `products_pdb` is ready to receive messages from `orders_pdb` through the configured message queue. It includes the creation of a storage table for incoming messages, which can be used to verify that messages are being properly received and processed.
 
