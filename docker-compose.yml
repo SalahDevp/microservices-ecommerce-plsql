@@ -3,24 +3,24 @@ services:
   products:
     build:
       context: ./products
-    environment:
-      - PORT=5000
+    ports:
+      - "5000:5000"
     networks:
       - micro-ecommerce
 
   orders:
     build:
       context: ./orders
-    environment:
-      - PORT=5001
+    ports:
+      - "5001:5000"
     networks:
       - micro-ecommerce
 
   customers:
     build:
       context: ./customers
-    environment:
-      - PORT=5002
+    ports:
+      - "5002:5000"
     networks:
       - micro-ecommerce
 
