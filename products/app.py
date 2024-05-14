@@ -48,7 +48,7 @@ def products():
         cursor.close()
 
 
-@app.route("/products/<id:int>", methods=["PUT", "DELETE"])
+@app.route("/products/<int:id>", methods=["PUT", "DELETE"])
 def product_details(id):
     cursor = connection.cursor()
     try:
