@@ -1,7 +1,9 @@
 from flask import Flask, jsonify, request
 import oracledb
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
 # Database connection parameters
 dsn = oracledb.makedsn("localhost", "1521", service_name="products_pdb")
