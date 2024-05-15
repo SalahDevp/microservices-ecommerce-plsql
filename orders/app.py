@@ -1,13 +1,18 @@
 from flask import Flask, jsonify, request
 import oracledb
 from flask_cors import CORS
+from . import config
 
 app = Flask(__name__)
 CORS(app)
 
 # Database connection parameters
-dsn = oracledb.makedsn("localhost", "1521", service_name="orders_pdb")
-connection = oracledb.connect(user="orders_service", password="Oracle21c", dsn=dsn)
+dsn = oracledb.makedsn(
+    config.ORCL_HOST, config.ORCL_PORT, service_name=config.ORCL_SERVICE
+)
+connection = oracledb.connect(
+    user=config.ORCL_USER, password=config.ORCL_PASSWORD, dsn=dsn
+)
 
 
 @app.route("/carts/<int:customer_id>", methods=["GET", "DELETE"])

@@ -5,6 +5,12 @@ services:
       context: ./products
     ports:
       - "5000:5000"
+    environment:
+      - ORCL_SERVICE=products_pdb
+      - ORCL_USER=products_service
+      - ORCL_PASSWORD=Oracle21c
+    env_file:
+      - db.env
     networks:
       - micro-ecommerce
 
@@ -13,6 +19,12 @@ services:
       context: ./orders
     ports:
       - "5001:5000"
+    environment:
+      - ORCL_SERVICE=orders_pdb
+      - ORCL_USER=orders_service
+      - ORCL_PASSWORD=Oracle21c
+    env_file:
+      - db.env
     networks:
       - micro-ecommerce
 
@@ -21,6 +33,12 @@ services:
       context: ./customers
     ports:
       - "5002:5000"
+    environment:
+      - ORCL_SERVICE=customers_pdb
+      - ORCL_USER=customers_service
+      - ORCL_PASSWORD=Oracle21c
+    env_file:
+      - db.env
     networks:
       - micro-ecommerce
 
