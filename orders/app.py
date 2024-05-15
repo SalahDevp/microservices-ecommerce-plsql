@@ -81,7 +81,38 @@ def carts_content(customer_id, product_id):
         cursor.close()
 
 
-# @app.route('/orders/<int:customer_id>', methods=[''])
+@app.route("/orders", methods=["GET"])
+def orders():
+    cursor = connection.cursor()
+    try:
+        result_cursor = cursor.callfunc("main_p.get_orders", oracledb.CURSOR)
+        orders = result_cursor.fetchall()
+
+        columns = [col[0].lower() for col in result_cursor.description]
+        orders = [dict(zip(columns, row)) for row in orders]
+
+        result_cursor.close()
+        return jsonify(orders)
+
+    except oracledb.DatabaseError as e:
+        (error,) = e.args
+        return jsonify({"message": "Database error: " + error.message}), 500
+    finally:
+        cursor.close()
+
+
+@app.route("/orders/<int:customer_id>", methods=["POST"])
+def orders(customer_id):
+    cursor = connection.cursor()
+    try:
+        cursor.callproc("main_p.order_cart", [customer_id])
+        return jsonify({"message": "Order created successfully"}), 200
+    except oracledb.DatabaseError as e:
+        (error,) = e.args
+        return jsonify({"message": "Database error: " + error.message}), 500
+    finally:
+        cursor.close()
+
 
 if __name__ == "__main__":
     app.run(port=5001, debug=True)

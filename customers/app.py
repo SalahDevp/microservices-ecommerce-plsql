@@ -52,11 +52,11 @@ def customers():
         cursor.close()
 
 
-@app.route("/customers/<int:id>", methods=["PATCH", "DELETE"])
+@app.route("/customers/<int:id>", methods=["PUT", "DELETE"])
 def customers_details(id):
     cursor = connection.cursor()
     try:
-        if request.method == "PATCH":
+        if request.method == "PUT":
             data = request.json
 
             balance_change = data["balance_change"]
