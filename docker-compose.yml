@@ -41,6 +41,18 @@ services:
       - db.env
     networks:
       - micro-ecommerce
+  
+  gateway:
+    build:
+      context: ./gateway
+    ports:
+      - "8000:5000"
+    environment:
+      - PRODUCTS_SERVICE_URL=http://products:5000
+      - ORDERS_SERVICE_URL=http://orders:5000
+      - CUSTOMERS_SERVICE_URL=http://customers:5000
+    networks:
+      - micro-ecommerce
 
 networks:
   micro-ecommerce:

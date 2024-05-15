@@ -27,7 +27,7 @@ def carts(customer_id):
 
             products = result_cursor.fetchall()
 
-            columns = [col[0] for col in result_cursor.description]
+            columns = [col[0].lower() for col in result_cursor.description]
             products = [dict(zip(columns, row)) for row in products]
 
             result_cursor.close()
