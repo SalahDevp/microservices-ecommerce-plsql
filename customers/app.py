@@ -59,7 +59,7 @@ def customers_details(id):
         if request.method == "PUT":
             data = request.json
 
-            balance_change = data["balance_change"]
+            balance_change = int(data["balance_change"])
 
             if balance_change < 0:
                 cursor.callproc("main_p.subtract_balance", [id, abs(balance_change)])
