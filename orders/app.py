@@ -44,15 +44,13 @@ def carts(customer_id):
         cursor.close()
 
 
-@app.route(
-    "/carts/<int:customer_id>/products/<int:product_id>", methods=["PUT", "DELETE"]
-)
+@app.route("/carts/<int:customer_id>/products/<int:product_id>", methods=["PUT"])
 def carts_content(customer_id, product_id):
     cursor = connection.cursor()
+    data = request.json
     try:
-        if request.method == "PUT":
+        if not data["delete"]:
             # Add product or add quantity to the product in the cart
-            data = request.json
 
             cursor.callproc(
                 "main_p.add_product_cart",
@@ -65,12 +63,11 @@ def carts_content(customer_id, product_id):
 
             return jsonify({"message": "Cart updated successfully"}), 200
 
-        elif request.method == "DELETE":
+        else:
             # Reduce the quantity of the product in the cart, if all quantity is removed then remove the product from the cart
-            data = request.json
             cursor.callproc(
                 "main_p.remove_product_cart",
-                [customer_id, product_id, data["remove_quantity"]],
+                [customer_id, product_id, data["quantity"]],
             )
             return jsonify({"message": "Cart updated successfully"}), 200
 
