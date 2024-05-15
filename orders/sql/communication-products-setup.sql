@@ -1,11 +1,11 @@
 -- create link (use sys user)
-CREATE PUBLIC DATABASE LINK link_to_customers
-  CONNECT TO customers_service IDENTIFIED BY Oracle21c
+CREATE PUBLIC DATABASE LINK link_to_products
+  CONNECT TO products_service IDENTIFIED BY Oracle21c
   USING '(DESCRIPTION =
     (ADDRESS = (PROTOCOL = TCP)(HOST = localhost)(PORT = 1521))
     (CONNECT_DATA =
       (SERVER = DEDICATED)
-      (SERVICE_NAME = customers_pdb)
+      (SERVICE_NAME = products_pdb)
     )
   )';
   
@@ -13,11 +13,11 @@ CREATE PUBLIC DATABASE LINK link_to_customers
 BEGIN
   dbms_aqadm.schedule_propagation(
     queue_name     => 'orders_queue',
-    destination    => 'LINK_TO_customers',
+    destination    => 'LINK_TO_products',
     start_time     => SYSTIMESTAMP,
     duration       => NULL,
     latency        => 0,
-    destination_queue => 'customers_service.orders_queue'
+    destination_queue => 'products_service.orders_queue'
   );
 EXCEPTION
   WHEN OTHERS THEN
@@ -27,7 +27,7 @@ END;
 DECLARE
     subscriber sys.aq$_agent;
 BEGIN
-    subscriber := sys.aq$_agent('customers_service', 'orders_service.orders_queue@LINK_TO_ORDERS', NULL);
+    subscriber := sys.aq$_agent('products_service', 'orders_service.orders_queue@LINK_TO_ORDERS', NULL);
     dbms_aqadm.add_subscriber(queue_name => 'orders_queue', subscriber => subscriber, queue_to_queue => true);
     
 EXCEPTION
@@ -52,4 +52,4 @@ SELECT
   job_name
 FROM
   user_queue_schedules
-where destination like '%LINK_TO_customers%';
+where destination like '%LINK_TO_products%';
