@@ -39,7 +39,7 @@
    Ensure the database settings in the `db.env` file are correct. By default, the database should be running on `localhost` port `1521`. Modify these settings in the `db.env` file if your database configuration differs.
 
 3. **Launch the Application:**
-   Execute the following command to build and start all the services defined in your Docker Compose configuration:
+   Execute the following command to build and start all the services defined in the Docker Compose configuration:
    ```
    docker compose up --build
    ```
