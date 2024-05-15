@@ -102,7 +102,7 @@ def orders():
 
 
 @app.route("/orders/<int:customer_id>", methods=["POST"])
-def orders(customer_id):
+def customers_orders(customer_id):
     cursor = connection.cursor()
     try:
         cursor.callproc("main_p.order_cart", [customer_id])
