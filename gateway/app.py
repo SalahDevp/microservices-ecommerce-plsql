@@ -11,20 +11,24 @@ all_methods = ["GET", "POST", "PUT", "DELETE", "PATCH"]
 
 
 @app.route("/carts", methods=all_methods)
+@app.route("/carts/<path:path>", methods=all_methods)
 @app.route("/orders", methods=all_methods)
-def orders_proxy():
+@app.route("/orders/<path:path>", methods=all_methods)
+def orders_proxy(path=None):
     response = redirect(request, config.ORDERS_SERVICE_URL)
     return (response.content, response.status_code, response.headers.items())
 
 
 @app.route("/products", methods=all_methods)
-def products_proxy():
+@app.route("/products/<path:path>", methods=all_methods)
+def products_proxy(path=None):
     response = redirect(request, config.PRODUCTS_SERVICE_URL)
     return (response.content, response.status_code, response.headers.items())
 
 
 @app.route("/customers", methods=all_methods)
-def customers_proxy():
+@app.route("/customers/<path:path>", methods=all_methods)
+def customers_proxy(path=None):
     response = redirect(request, config.CUSTOMERS_SERVICE_URL)
     return (response.content, response.status_code, response.headers.items())
 
