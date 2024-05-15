@@ -1,3 +1,5 @@
+# Project Setup
+
 ### Step 1: Create Pluggable Databases (PDBs)
 
 1. **Locate the Creation Scripts:** In the parent folder containing the source code, navigate to the `sql` folder within each service folder:
