@@ -54,5 +54,13 @@ services:
     networks:
       - micro-ecommerce
 
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "3000:3000"
+    networks:
+      - micro-ecommerce
+
 networks:
   micro-ecommerce:
